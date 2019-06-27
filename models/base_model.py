@@ -7,7 +7,7 @@ import datetime
 class BaseModel:
     """Base class"""
 
-    def __init__(self, id, created_at, updated_at):
+    def __init__(self, id=None, created_at=None, updated_at=None):
         """Initializes attributes for class BaseModel
         Args:
             id: identification number
