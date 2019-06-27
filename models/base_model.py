@@ -14,10 +14,12 @@ class BaseModel:
             id: identification number
         """
 
-        if not kwargs and kwargs != {}:
+        if kwargs and kwargs != {}:
             for k, v in kwargs.items():
                 if k == "created_at" or k == "updated_at":
-                    setattr(self, k, datetime.fromisoformat("%Y-%m-%dT%H:%M:%S.%f"))
+                    setattr(self, k, datetime.fromisoformat(v))
+                elif k == "__class__":
+                    continue
                 else:
                     setattr(self, k, v)
         else:
