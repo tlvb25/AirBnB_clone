@@ -7,7 +7,7 @@ import datetime
 class BaseModel:
     """Base class"""
 
-    def __init__(self, id=None, created_at=None, updated_at=None):
+    def __init__(self, id=None, created_at=None, updated_at=None, *args, **kwargs):
         """Initializes attributes for class BaseModel
         Args:
             id: identification number
@@ -20,8 +20,8 @@ class BaseModel:
     def __str__(self):
         """ """
 
-        cls = self.__class.__name__
-        return ("[{}] ({}) {}".format(cls, self.id, self.__dict__))
+        cl = self.__class__.__name__
+        return ("[{}] ({}) {}".format(cl, self.id, self.__dict__))
 
     def save(self):
         """ """
@@ -36,3 +36,5 @@ class BaseModel:
         d['created_at'] = self.created_at.isoformat()
         d['updated_at'] = self.updated_at.isoformat()
         return d
+
+    def __init__(self, *args, **kwargs):
