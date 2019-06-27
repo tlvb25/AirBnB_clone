@@ -20,7 +20,8 @@ class BaseModel:
     def __str__(self):
         """ """
 
-        return ("[{}] ({}) {}".format(self.__class__.__name, self.id     )
+        cls = self.__class.__name
+        return ("[{}] ({}) {}".format(cls, self.id, self.__dict__)
 
     def save(self):
         """ """
