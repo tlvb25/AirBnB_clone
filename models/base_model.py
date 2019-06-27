@@ -21,7 +21,7 @@ class BaseModel:
         """ """
 
         cls = self.__class.__name
-        return ("[{}] ({}) {}".format(cls, self.id, self.to_dict)
+        return ("[{}] ({}) {}".format(cls, self.id, self.__dict__)
 
     def save(self):
         """ """
