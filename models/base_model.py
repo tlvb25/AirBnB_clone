@@ -1,21 +1,29 @@
 #!/usr/bin/python3
 """Module that holds class BaseModel"""
 import uuid
-import datetime
+from datetime import datetime
+import time
 
 
 class BaseModel:
     """Base class"""
 
-    def __init__(self, id=None, created_at=None, updated_at=None):
+    def __init__(self, *args, **kwargs):
         """Initializes attributes for class BaseModel
         Args:
             id: identification number
         """
 
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        if not kwargs and kwargs != {}:
+            for k, v in kwargs.items():
+                if k == "created_at" or k == "updated_at":
+                    setattr(self, k, time.strptime(v, "%Y-%m-%dT%H:%M:%S.%f"))
+                else:
+                    setattr(self, k, v)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """ """
@@ -26,7 +34,7 @@ class BaseModel:
     def save(self):
         """ """
 
-        self.updated_at = datetime.datetime.now()
+        self.updated_at = datetime.now()
 
     def to_dict(self):
         """ """
