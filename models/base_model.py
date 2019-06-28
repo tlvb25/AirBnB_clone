@@ -45,5 +45,3 @@ class BaseModel:
         d['updated_at'] = self.updated_at.isoformat()
         d['__class__'] = self.__class__.__name__
         return d
-
-    
