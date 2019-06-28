@@ -36,6 +36,8 @@ class TestBaseModel(unittest.TestCase):
     def test_3_03_toDict(self):
         """Checks output when using to_dict()"""
 
+        self.assertFalse("__class__" in self.b1.__dict__)
+        self.assertFalse("__class__" in self.b2.__dict__)
         dict_check = self.b1.to_dict()
         self.assertTrue("__class__" in dict_check)
         self.assertFalse("__class__" in self.b2.__dict__)
