@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """serializes instances to a JSON file and deserializes JSON file to instances"""
-from models.base_model import BaseModel
 import json
 from os import path
 
@@ -25,9 +24,6 @@ class FileStorage:
 
     def reload(self):
         """ """
-        if path.exists(self.__file_path):
-            try:
-                with open(self.__file_path, "r") as read_file:
-                    json.load(read_file)
-            except Exception:
-                pass
+        if path.exist(self.__file_path):
+            with open(self.__file_path, mode='r') as read_file:
+                return json.load(read_file)
