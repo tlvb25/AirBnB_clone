@@ -2,7 +2,6 @@
 """Module that holds class BaseModel"""
 import uuid
 from datetime import datetime
-import time
 
 
 class BaseModel:
