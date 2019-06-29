@@ -19,18 +19,18 @@ class FileStorage:
     def save(self):
 
         tmp_dict = {}
-        for k in self.__objects:
-            tmp_dict[k] = self.__objects[k].to_dict()
+        for k, v in self.__objects.items():
+            tmp_dict[k] = v.to_dict()
         with open(self.__file_path, "w", encoding="utf-8") as written_file:
             json.dump(tmp_dict, written_file)
 
     def reload(self):
 
-        tmp = {}
+        dict_of_dicts = {}
         try:
             with open(self.__file_path, "r") as r:
-                tmp = json.load(r)
-            for k, v in tmp.items():
+                dict_of_dicts = json.load(r)
+            for k, v in dict_of_dicts.items():
                 self.__objects[k] = BaseModel(**v)
         except Exception:
             pass
