@@ -20,10 +20,13 @@ class FileStorage:
     def save(self):
         """ """
         with open(self.__file_path, 'w', encoding='utf-8') as writtenFile:
-            json.dump(self.__object, writtenFile)
+            json.dump(self.__objects, writtenFile)
 
     def reload(self):
         """ """
-        if path.exists(self.__file_path):
-            with open(self.__file_path, 'r') as read_file:
-                return json.load(read_file)
+        try:
+            if path.exists(self.__file_path):
+                with open(self.__file_path, 'r') as read_file:
+                    return json.load(read_file)
+        except Exception:
+            pass

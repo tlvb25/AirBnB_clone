@@ -2,7 +2,7 @@
 """Module that holds class BaseModel"""
 import uuid
 from datetime import datetime
-from models import storage
+import models
 
 
 
@@ -37,7 +37,7 @@ class BaseModel:
         """ """
 
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
 
     def to_dict(self):
