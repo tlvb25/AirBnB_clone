@@ -35,22 +35,3 @@ class FileStorage:
                 self.__objects[k] = BaseModel(**v)
         except Exception:
             pass
-
-
-        '''
-        if path.exists(self.__file_path):
-            with open(self.__file_path, "r") as r:
-                return json.load(r)
-        '''
-        '''
-        try:
-            print("hello")
-            with open(self.__file_path, "r") as read_file:
-                x = json.load(read_file)
-            return x
-        except Exception:
-            print("goodbye")
-            pass
-        '''
-#            with open(self.__file_path, mode='r') as read_file:
- #               return json.load(read_file)
