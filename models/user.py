@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-""" User classs that inherits from BaseModel """
-
+"""Holds User class that inherits from BaseModel"""
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
-    """ User Class Public Attributes """
+    """User class that defines User information"""
+
     email = ""
     password = ""
     first_name = ""
     last_name = ""
-    

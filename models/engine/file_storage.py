@@ -2,10 +2,13 @@
 # that serializes instances to a JSON file and deserializes JSON file to instances
 
 from models.base_model import BaseModel
+from models.user import User
 import json
 from os import path
 
 class FileStorage:
+    """Class to hold information and saved instances"""
+
     __file_path = 'file.json'
     __objects = {}
 
@@ -34,6 +37,7 @@ class FileStorage:
             with open(self.__file_path, "r") as r:
                 dict_of_dicts = json.load(r)
             for k, v in dict_of_dicts.items():
-                self.__objects[k] = BaseModel(**v)
+                if v['__class__'] in classes:
+                    self.__objects[k] = classes[v['__class__']](**v)
         except Exception:
             pass
