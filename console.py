@@ -52,6 +52,13 @@ class HBNBCommand(cmd.Cmd):
         not on the class name
         """
 
+        key_list = []
+        instances = storage.all()
+        if not line:
+            for key in instances:
+                key_list.append(instances[key])
+            print(key_list)
+            return
         
 
 
