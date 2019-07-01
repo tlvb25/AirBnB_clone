@@ -66,19 +66,23 @@ class HBNBCommand(cmd.Cmd):
         rec_of_instances = storage.all()
         if not line or line == "":
             print('** class name missing **')
-        else:
-            args = line.split()
-            if args[0] not in rec_of_instances:
+
+        args = line.split()
+        if len(args) == 2:
+            if args[0] not in self.classes:
                 print("** class doesn't exist **")
-            elif not args[1] or args[1] == "":
-                print('** instance id missing **')
+                return
+            key = args[0] + '.' + args[1]
+            if key not in rec_of_instances:
+                print('** no instance found **')
+                return
             else:
-                key = args[0] + '.' + args[1]
-                if key not in rec_of_instances:
-                    print('** no instance found **')
-                else:
-                    del rec_of_instances[key]
-                    storage.save()
+                del rec_of_instances[key]
+                storage.save()
+
+        elif len(args) == 1:
+            print('** instance id missing **')
+            return
 
     def do_update(self, line):
         rec_of_instances = storage.all()
