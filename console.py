@@ -8,6 +8,7 @@ from models import storage
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)'
+    classes = {"BaseModel"}
 
     def do_quit(self, line):
         """ """
@@ -36,22 +37,30 @@ class HBNBCommand(cmd.Cmd):
             return
 
     def do_show(self, line):
+        """Prints the string representation of an instance based on the
+        class name and id
+        """
+
         if not line or line is "":
             print('** class name missing **')
             return
-        else:
-            args = line.split()
-            if args[0] not in storage.all():
-                print("** class doesn't exist **")
-            elif not args[1] or args[1] == "":
-                print("** instance id missing **")
-            else:
-                rec_of_instances = storage.all()
+        args = line.split()
+        if len(args) == 2:
+            if args[0] in self.classes:
                 key = args[0] + '.' + args[1]
-                if key not in dict:
-                    print('** no instance found **')
+                rec_of_instances = storage.all()
+                if key not in rec_of_instances:
+                    print("** no instance found **")
+                    return
                 else:
                     print(rec_of_instances[key])
+                    return
+            else:
+                print("** class doesn't exist **")
+                return
+        elif len(args) == 1:
+                print("** instance id missing **")
+                return
 
     def do_destroy(self, line):
         rec_of_instances = storage.all()
@@ -112,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
             print(key_list)
             return
         line_list = line.split()
-        if line_list[0] not in instances:
+        if line_list[0] not in self.classes:
             print("** class doesn't exist **")
             return
         for v in instances.values():
