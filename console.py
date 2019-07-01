@@ -22,7 +22,7 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
 
-    def create(self, line):
+    def do_create(self, line):
         if not line:
             print('** class name missing **')
             return
@@ -35,7 +35,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-    def show(self, line):
+    def do_show(self, line):
         if not line or line is "":
             print('** class name missing **')
             return
@@ -53,7 +53,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print(rec_of_instances[key])
 
-    def destroy(self, line):
+    def do_destroy(self, line):
         rec_of_instances = storage.__objects
         if not line or line == "":
             print('** class name missing **')
@@ -71,7 +71,7 @@ class HBNBCommand(cmd.Cmd):
                     del rec_of_instances[key]
                     storage.save()
 
-    def update(self, line):
+    def do_update(self, line):
         rec_of_instances = storage.__objects
         if not line or line == "":
             print('** class name missing **')
@@ -101,3 +101,4 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
+
