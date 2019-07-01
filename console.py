@@ -31,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
             return
         line_list = line.split()
         try:
-            inst1 = eval(line_list[0])
+            inst1 = eval(line_list[1])()
             inst1.save()
             print(inst1.id)
         except Exception:
@@ -56,7 +56,16 @@ class HBNBCommand(cmd.Cmd):
         except NameError:
             print("** class doesn't exist **")
 
+    def do_destroy(self, line):
+        """Deletes an instance based on the class name and id"""
 
+
+    def do_all(self, line):
+        """Prints all string representation of all instances based or
+        not on the class name
+        """
+
+        
 
 
 
