@@ -134,17 +134,17 @@ class HBNBCommand(cmd.Cmd):
             if key not in rec_of_instances:
                 print('** no instance found **')
             else:
-                if isinstance(args[3], str):
-                    setattr(rec_of_instances[key], args[2], str(args[3]))
-                    storage.save()
-                elif isinstance(args[3], int):
+                '''
+                if isinstance(args[3], int):
                     setattr(rec_of_instances[key], args[2], int(args[3]))
                     storage.save()
                 elif isinstance(args[3], float):
                     setattr(rec_of_instances[key], args[2], float(args[3]))
                     storage.save()
                 else:
-                    return
+                '''
+                setattr(rec_of_instances[key], args[2], (args[3]))
+                storage.save()
 
     def do_all(self, line):
         """Prints all string representation of all instances based or not
