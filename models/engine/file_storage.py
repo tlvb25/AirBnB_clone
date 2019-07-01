@@ -27,6 +27,9 @@ class FileStorage:
     def reload(self):
         """ deserializes the JSON file to __objects (only if the JSON file (__file_path) """
         dict_of_dicts = {}
+        classes = {
+            "BaseModel": BaseModel,
+            "User": User}
         try:
             with open(self.__file_path, "r") as r:
                 dict_of_dicts = json.load(r)
