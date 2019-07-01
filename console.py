@@ -46,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
             elif not args[1] or args[1] == "":
                 print("** instance id missing **")
             else:
-                rec_of_instances = storage.__objects
+                rec_of_instances = storage.all()
                 key = args[0] + '.' + args[1]
                 if key not in dict:
                     print('** no instance found **')
@@ -54,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
                     print(rec_of_instances[key])
 
     def do_destroy(self, line):
-        rec_of_instances = storage.__objects
+        rec_of_instances = storage.all()
         if not line or line == "":
             print('** class name missing **')
         else:
@@ -72,7 +72,7 @@ class HBNBCommand(cmd.Cmd):
                     storage.save()
 
     def do_update(self, line):
-        rec_of_instances = storage.__objects
+        rec_of_instances = storage.all()
         if not line or line == "":
             print('** class name missing **')
         else:
