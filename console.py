@@ -3,16 +3,19 @@
 import cmd
 import sys
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
     """Interpreter for AirBnB clone"""
 
-    prompt = '(hbnb)'
-    classes = {"BaseModel"}
+    prompt = '(hbnb) '
+    classes = {
+        "BaseModel",
+        "User"}
 
-    def do_quit(self):
+    def do_quit(self, line):
         """Exits the program"""
 
         return True
@@ -22,7 +25,7 @@ class HBNBCommand(cmd.Cmd):
 
         pass
 
-    def do_EOF(self):
+    def do_EOF(self, line):
         """Exits the program"""
 
         print()
@@ -130,7 +133,6 @@ class HBNBCommand(cmd.Cmd):
             key = args[0] + '.' + args[1]
             if key not in rec_of_instances:
                 print('** no instance found **')
-
             else:
                 if isinstance(args[3], str):
                     setattr(rec_of_instances[key], args[2], str(args[3]))
