@@ -22,7 +22,7 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
 
-    def create(self, line):
+    def do_create(self, line):
         if not line:
             print('** class name missing **')
             return
@@ -35,26 +35,26 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-    def show(self, line):
+    def do_show(self, line):
         if not line or line is "":
             print('** class name missing **')
             return
         else:
             args = line.split()
-            if args[0] not in storage._objects:
+            if args[0] not in storage.all():
                 print("** class doesn't exist **")
             elif not args[1] or args[1] == "":
                 print("** instance id missing **")
             else:
-                rec_of_instances = storage.__objects
+                rec_of_instances = storage.all()
                 key = args[0] + '.' + args[1]
                 if key not in dict:
                     print('** no instance found **')
                 else:
                     print(rec_of_instances[key])
 
-    def destroy(self, line):
-        rec_of_instances = storage.__objects
+    def do_destroy(self, line):
+        rec_of_instances = storage.all()
         if not line or line == "":
             print('** class name missing **')
         else:
@@ -71,8 +71,8 @@ class HBNBCommand(cmd.Cmd):
                     del rec_of_instances[key]
                     storage.save()
 
-    def update(self, line):
-        rec_of_instances = storage.__objects
+    def do_update(self, line):
+        rec_of_instances = storage.all()
         if not line or line == "":
             print('** class name missing **')
         else:
@@ -98,6 +98,28 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     setattr(rec_of_instances[key], args[2], float(args[3]))
                     storage.save()
+
+    def do_all(self, line):
+        """Prints all string representation of all instances based or not
+        on the class name
+        """
+
+        key_list = []
+        instances = storage.all()
+        if len(line) == 0:
+            for v in instances.values():
+                key_list.append(v.__str__())
+            print(key_list)
+            return
+        line_list = line.split()
+        if line_list[0] not in instances:
+            print("** class doesn't exist **")
+            return
+        for v in instances.values():
+            if line_list[0] == v.__class__.__name__:
+                key_list.append(v.__str__())
+        print(key_list)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
