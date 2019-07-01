@@ -85,22 +85,29 @@ class HBNBCommand(cmd.Cmd):
             return
 
     def do_update(self, line):
+
         rec_of_instances = storage.all()
-        if not line or line == "":
+        args = line.split()
+        if len(args) == 0:
             print('** class name missing **')
+            return
+        elif len(args) == 1:
+            print('** instance id missing **')
+            return
+        elif len(args) == 2:
+            print('** attribute name missing **')
+            return
+        elif len(args) == 3:
+            print('** value missing **')
+            return
         else:
-            args = line.split()
-            if args[0] not in rec_of_instances:
+            if args[0] not in self.classes:
                 print("** class doesn't exist **")
-            elif not args[1] or args[1] == "":
-                print('** instance id missing **')
+                return
             key = args[0] + '.' + args[1]
             if key not in rec_of_instances:
                 print('** no instance found **')
-            elif not args[2]:
-                print('** attribute name missing **')
-            elif not args[3]:
-                print('** value missing **')
+
             else:
                 if isinstance(args[3], str):
                     setattr(rec_of_instances[key], args[2], str(args[3]))
@@ -108,9 +115,11 @@ class HBNBCommand(cmd.Cmd):
                 elif isinstance(args[3], int):
                     setattr(rec_of_instances[key], args[2], int(args[3]))
                     storage.save()
-                else:
+                elif isinstance(args[3], float):
                     setattr(rec_of_instances[key], args[2], float(args[3]))
                     storage.save()
+                else:
+                    return
 
     def do_all(self, line):
         """Prints all string representation of all instances based or not
