@@ -8,6 +8,9 @@ from models import storage
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)'
+    classes = {
+        "BaseModel",
+        "User"}
 
     def do_quit(self, line):
         """ """
