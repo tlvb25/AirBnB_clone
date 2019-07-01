@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""contains the entry point of the command interpreter"""
+"""Module that contains the entry point of the command interpreter"""
 import cmd
 import sys
 from models.base_model import BaseModel
@@ -7,23 +7,34 @@ from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
+    """Interpreter for AirBnB clone"""
+
     prompt = '(hbnb)'
     classes = {"BaseModel"}
 
-    def do_quit(self, line):
-        """ """
+    def do_quit(self):
+        """Exits the program"""
+
         return True
 
     def emptyline(self):
-        """ """
+        """Skips the line if nothing is entered"""
+
         pass
 
-    def do_EOF(self, line):
-        """ """
+    def do_EOF(self):
+        """Exits the program"""
+
         print()
         return True
 
     def do_create(self, line):
+        """Creates a new instance of BaseModel,
+        saves it (to the JSON file) and prints the id.
+        Args:
+            line - user input
+        """
+
         if not line:
             print('** class name missing **')
             return
@@ -39,6 +50,8 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """Prints the string representation of an instance based on the
         class name and id
+        Args:
+            line - user input
         """
 
         if not line or line is "":
@@ -63,6 +76,11 @@ class HBNBCommand(cmd.Cmd):
                 return
 
     def do_destroy(self, line):
+        """Deletes an instance based on the class name and id
+        Args:
+            line - user input
+        """
+
         rec_of_instances = storage.all()
         if not line or line == "":
             print('** class name missing **')
@@ -85,6 +103,11 @@ class HBNBCommand(cmd.Cmd):
             return
 
     def do_update(self, line):
+        """Updates an instance based on the class name and id by
+        adding or updating attribute (save the change into the JSON file).
+        Args:
+            line - user input
+        """
 
         rec_of_instances = storage.all()
         args = line.split()
@@ -124,6 +147,8 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, line):
         """Prints all string representation of all instances based or not
         on the class name
+        Args:
+            line - user input
         """
 
         key_list = []
@@ -141,7 +166,6 @@ class HBNBCommand(cmd.Cmd):
             if line_list[0] == v.__class__.__name__:
                 key_list.append(v.__str__())
         print(key_list)
-
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
