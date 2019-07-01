@@ -13,8 +13,8 @@ class FileStorage:
         return self.__objects
 
     def new(self, obj):
-#        self.__objects[obj.__class__.__name__ + '.' + str(obj.id)] = obj
-        self.__objects["{}.{}".format(obj.__class__.__name__, obj.id)] = obj
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        self.__objects[key] = obj
 
     def save(self):
 
