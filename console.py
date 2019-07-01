@@ -143,7 +143,8 @@ class HBNBCommand(cmd.Cmd):
                     storage.save()
                 else:
                 '''
-                setattr(rec_of_instances[key], args[2], (args[3]))
+                a3 = args[3].strip('\"')
+                setattr(rec_of_instances[key], args[2], a3)
                 storage.save()
 
     def do_all(self, line):
