@@ -7,7 +7,7 @@ from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
-    prompt = '(hbnb)'
+    prompt = '(hbnb) '
     classes = {"BaseModel"}
 
     def do_quit(self, line):
@@ -31,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
             return
         line_list = line.split()
         try:
-            inst1 = eval(line_list[1])()
+            inst1 = eval(line_list[0])()
             inst1.save()
             print(inst1.id)
         except Exception:
@@ -42,19 +42,6 @@ class HBNBCommand(cmd.Cmd):
         """Prints the string representation of an instance based on the class
         name and ID
         """
-
-        try:
-            if not line:
-                raise SyntaxError()
-            line_list = line.split()
-            inst1 = eval(line_list[0])
-            if line_list[1] is not in self.classes:
-                raise NameError()
-
-        except SyntaxError:
-            print("** class name missing **")
-        except NameError:
-            print("** class doesn't exist **")
 
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id"""
