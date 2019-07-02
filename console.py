@@ -26,7 +26,10 @@ class HBNBCommand(cmd.Cmd):
         "State"}
 
     def do_quit(self, line):
-        """Exits the program"""
+        """Exits the program
+        Args:
+            line - the user inputted string
+        """
 
         return True
 
@@ -36,7 +39,10 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_EOF(self, line):
-        """Exits the program"""
+        """Exits the program
+        Args:
+            line - the user inputted string
+        """
 
         print()
         return True
