@@ -43,8 +43,8 @@ class FileStorage:
             json.dump(tmp_dict, written_file)
 
     def reload(self):
-        """Ddeserializes the JSON file to __objects (only if the JSON file
-        (__file_path)
+        """Deserializes the JSON file to __objects (only if the JSON file
+        (__file_path))
         """
 
         dict_of_dicts = {}
@@ -56,6 +56,7 @@ class FileStorage:
             "Place": Place,
             "Review": Review,
             "State": State}
+
         try:
             temp_dict = {}
             with open(self.__file_path, "r") as r:
@@ -63,6 +64,6 @@ class FileStorage:
             for k, v in dict_of_dicts.items():
                 if v['__class__'] in classes:
                     temp_dict[k] = classes[v['__class__']](**v)
-            self.__objects=temp_dict
+            self.__objects = temp_dict
         except Exception:
             pass
