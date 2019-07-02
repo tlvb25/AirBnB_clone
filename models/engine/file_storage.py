@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-# that serializes instances to a JSON file and deserializes JSON file to instances
-
+# Serializes instances to a JSON file and deserializes
+# JSON file to instances
 from models.base_model import BaseModel
 from models.user import User
 from models.amenity import Amenity
@@ -10,6 +10,7 @@ from models.review import Review
 from models.state import State
 import json
 from os import path
+
 
 class FileStorage:
     """Class to hold information and saved instances"""
@@ -33,7 +34,9 @@ class FileStorage:
             json.dump(tmp_dict, written_file)
 
     def reload(self):
-        """ deserializes the JSON file to __objects (only if the JSON file (__file_path) """
+        """ deserializes the JSON file to __objects (only if the JSON file
+        (__file_path)
+        """
         dict_of_dicts = {}
         classes = {
             "BaseModel": BaseModel,
