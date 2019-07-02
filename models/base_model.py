@@ -11,7 +11,9 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Initializes attributes for class BaseModel
         Args:
-            id: identification number
+            id - identification number
+            *args - arguments (not used)
+            **kwargs - dictionary arguments
         """
 
         if kwargs and kwargs != {}:
