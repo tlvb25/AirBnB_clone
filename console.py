@@ -157,9 +157,6 @@ class HBNBCommand(cmd.Cmd):
                     setattr(rec_of_instances[key], args[2], a3)
                     storage.save()
 
-
-
-
     def do_all(self, line):
         """Prints all string representation of all instances based or not
         on the class name
@@ -185,4 +182,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
