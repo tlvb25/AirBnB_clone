@@ -17,13 +17,13 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
     classes = {
-        "BaseModel",
-        "User",
-        "Amenity",
-        "City",
-        "Place",
-        "Review",
-        "State"}
+            "BaseModel": BaseModel,
+            "User": User,
+            "Place": Place,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Review": Review}
 
     def do_quit(self, line):
         """Exits the program
@@ -169,7 +169,6 @@ class HBNBCommand(cmd.Cmd):
         Args:
             line - user input
         """
-
         key_list = []
         instances = storage.all()
         if len(line) == 0:
@@ -185,6 +184,11 @@ class HBNBCommand(cmd.Cmd):
             if line_list[0] == v.__class__.__name__:
                 key_list.append(v.__str__())
         print(key_list)
+
+    def default(self, line):
+        print('default({})'.format(line))
+        return cmd.Cmd.default(self, line)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
