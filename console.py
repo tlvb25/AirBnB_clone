@@ -4,11 +4,11 @@ import cmd
 import sys
 from models.base_model import BaseModel
 from models.user import User
-from models.place import Place
-from models.state import State
-from models.city import City
 from models.amenity import Amenity
+from models.city import City
+from models.place import Place
 from models.review import Review
+from models.state import State
 from models import storage
 
 
@@ -26,7 +26,10 @@ class HBNBCommand(cmd.Cmd):
             "Review": Review}
 
     def do_quit(self, line):
-        """Exits the program"""
+        """Exits the program
+        Args:
+            line - the user inputted string
+        """
 
         return True
 
@@ -36,7 +39,10 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_EOF(self, line):
-        """Exits the program"""
+        """Exits the program
+        Args:
+            line - the user inputted string
+        """
 
         print()
         return True
@@ -144,18 +150,18 @@ class HBNBCommand(cmd.Cmd):
             if key not in rec_of_instances:
                 print('** no instance found **')
             else:
-                '''
-                if isinstance(args[3], int):
-                    setattr(rec_of_instances[key], args[2], int(args[3]))
-                    storage.save()
-                elif isinstance(args[3], float):
-                    setattr(rec_of_instances[key], args[2], float(args[3]))
-                    storage.save()
-                else:
-                '''
                 a3 = args[3].strip('\"')
-                setattr(rec_of_instances[key], args[2], a3)
-                storage.save()
+                if hasattr(key, args[2]) is True:
+                    attr_type = type(getattr(key, args[2]))
+                    if attr_type == int:
+                        setattr(rec_of_instances[key], args[2], int(a3))
+                        storage.save()
+                    elif attr_type == float:
+                        setattr(rec_of_instances[key], args[2], float(a3))
+                        storage.save()
+                else:
+                    setattr(rec_of_instances[key], args[2], a3)
+                    storage.save()
 
     def do_all(self, line):
         """Prints all string representation of all instances based or not

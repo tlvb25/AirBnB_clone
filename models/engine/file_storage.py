@@ -1,16 +1,17 @@
 #!/usr/bin/python3
-# that serializes instances to a JSON file and deserializes JSON file to instances
-
+"""Serializes instances to a JSON file and deserializes
+JSON file to instances
+"""
 from models.base_model import BaseModel
 from models.user import User
-from models.place import Place
-from models.state import State
-from models.city import City
 from models.amenity import Amenity
+from models.city import City
+from models.place import Place
 from models.review import Review
-
+from models.state import State
 import json
 from os import path
+
 
 class FileStorage:
     """Class to hold information and saved instances"""
@@ -19,14 +20,22 @@ class FileStorage:
     __objects = {}
 
     def all(self):
+        """Returns all objects stored"""
+
         return self.__objects
 
     def new(self, obj):
+        """Formats the objects to be set in self.__objects
+        Args:
+           obj - the class type
+        """
+
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
         self.__objects[key] = obj
 
     def save(self):
-        """ serializes __objects to the JSON file (path: __file_path) """
+        """Serializes __objects to the JSON file (path: __file_path)"""
+
         tmp_dict = {}
         for k, v in self.__objects.items():
             tmp_dict[k] = v.to_dict()
@@ -34,17 +43,19 @@ class FileStorage:
             json.dump(tmp_dict, written_file)
 
     def reload(self):
-        """ deserializes the JSON file to __objects (only if the JSON file (__file_path) """
+        """Ddeserializes the JSON file to __objects (only if the JSON file
+        (__file_path)
+        """
+
         dict_of_dicts = {}
         classes = {
             "BaseModel": BaseModel,
             "User": User,
-            "Place": Place,
-            "State": State,
-            "City": City,
             "Amenity": Amenity,
-            "Review": Review}
-            
+            "City": City,
+            "Place": Place,
+            "Review": Review,
+            "State": State}
         try:
             temp_dict = {}
             with open(self.__file_path, "r") as r:
