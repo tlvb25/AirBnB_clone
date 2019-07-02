@@ -30,19 +30,23 @@ class BaseModel:
             models.storage.new(self)
 
     def __str__(self):
-        """ """
+        """Returns a formated string of classname, id, and dictionary
+        contens
+        """
 
         return ("[{}] ({}) {}".format(self.__class__.__name__,
                                       self.id, self.__dict__))
 
     def save(self):
-        """ """
+        """Saves any new information added to a class instance and
+        saves an update time
+        """
 
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
-        """ """
+        """Returns a dictionary of all the contens of a class instance"""
 
         d = self.__dict__.copy()
         d['__class__'] = self.__class__.__name__
