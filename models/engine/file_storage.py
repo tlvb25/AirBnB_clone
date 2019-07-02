@@ -46,10 +46,12 @@ class FileStorage:
             "Review": Review}
             
         try:
+            temp_dict = {}
             with open(self.__file_path, "r") as r:
                 dict_of_dicts = json.load(r)
             for k, v in dict_of_dicts.items():
                 if v['__class__'] in classes:
-                    self.__objects[k] = classes[v['__class__']](**v)
+                    temp_dict[k] = classes[v['__class__']](**v)
+            self.__objects=temp_dict
         except Exception:
             pass

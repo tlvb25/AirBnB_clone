@@ -179,6 +179,10 @@ class HBNBCommand(cmd.Cmd):
                 key_list.append(v.__str__())
         print(key_list)
 
+    def default(self, line):
+        print('default({})'.format(line))
+        return cmd.Cmd.default(self, line)
+
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
