@@ -4,6 +4,11 @@ import cmd
 import sys
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 from models import storage
 
 
@@ -12,8 +17,13 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
     classes = {
-        "BaseModel",
-        "User"}
+            "BaseModel": BaseModel,
+            "User": User,
+            "Place": Place,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Review": Review}
 
     def do_quit(self, line):
         """Exits the program"""
@@ -153,7 +163,6 @@ class HBNBCommand(cmd.Cmd):
         Args:
             line - user input
         """
-
         key_list = []
         instances = storage.all()
         if len(line) == 0:
