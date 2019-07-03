@@ -9,11 +9,15 @@ class TestUser(unittest.TestCase):
 
     def setUp(self):
         """ Sets Up Testing Environment """
+        print('set up')
         self.a = User()
         self.a.email = "test@holberton.com"
         self.a.password = "Betty8"
         self.a.first_name = "Betty"
         self.a.last_name = "Holberton"
+
+    def tearDown(self):
+        print('tear down')
 
     def Test_Instantation(self):
         self.assertIsInstance(self.a, User())
