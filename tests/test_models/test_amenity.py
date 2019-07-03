@@ -3,6 +3,7 @@
 import unittest
 import datetime
 from models.amenity import Amenity
+from models.base_model import BaseModel
 
 
 class TestAmenity(unittest.TestCase):
@@ -79,6 +80,11 @@ class TestAmenity(unittest.TestCase):
 
         self.a3 = Amenity()
         self.assertIsInstance(self.a3, Amenity)
+
+    def test_inheritence(self):
+        """Checks to make sure Amenity is inherited from BaseModel"""
+
+        self.assertTrue(issubclass(Amenity, BaseModel))
 
     def tearDown(self):
         """Breaks down the testing environment"""
