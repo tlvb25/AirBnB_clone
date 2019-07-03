@@ -2,9 +2,10 @@
 """ Unittest for BaseModel User """
 import unittest
 from datetime import datetime
-import models
+from models.user import User
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+
 
 class TestUser(unittest.TestCase):
     """ Runs Test for User.py """
@@ -59,6 +60,9 @@ class TestUser(unittest.TestCase):
 
     def Test_Instantation(self):
         self.assertIsInstance(self.a, User())
+
+    def Test_Subclass_Inheritance(self):
+        self.assertTrue(issubclass(type(self.a), BaseModel))
 
     def Test_Inheriance(self):
         self.assertIsInstance(self.a, BaseModel)
