@@ -21,10 +21,8 @@ class TestBaseModel(unittest.TestCase):
 
         del self.b1
         del self.b2
-        try:
+        if os.path.exists("file.json"):
             os.remove("file.json")
-        except Exception:
-            pass
 
     def test_create(self):
         """Tests the creation of a BaseModel class"""
@@ -146,6 +144,29 @@ class TestBaseModel(unittest.TestCase):
         b3 = BaseModel(id="1212")
         self.assertEqual(b3.id, "1212")
 
+    def test_multiplie_args_for_to_dict(self):
+        """Checks for when to_dict() receives too many arguments"""
+
+        with self.assertRaises(TypeError) as e:
+            self.b1.to_dict("Greetings")
+        excep = e.exception
+        self.assertEqual(str(excep), "to_dict() takes 1 positional argument " +
+                         "but 2 were given")
+
+    def test_multiple_args_for_save(self):
+        """Checks for when save() receives too many arguments"""
+
+        with self.assertRaises(TypeError) as e:
+            self.b1.save(22)
+        excep = e.exception
+        self.assertEqual(str(excep), "save() takes 1 positional argument " +
+                         "but 2 were given")
+        with self.assertRaises(TypeError) as e2:
+            self.b2.save("hi")
+        excep2 = e2.exception
+        self.assertEqual(str(excep2), "save() takes 1 positional argument " +
+                         "but 2 were given")
+
     def test_file(self):
         """Tests that info is saved to file"""
 
@@ -153,3 +174,16 @@ class TestBaseModel(unittest.TestCase):
         b3.save()
         with open("file.json", "r") as f:
             self.assertIn(b3.id, f.read())
+
+    def test_pass_in_dict(self):
+        """Checks when a dictionary is passed in for new instance"""
+
+        self.b2.name = "Rhulad"
+        self.b2.zodiac = "Scorpio"
+        my_dict = self.b2.to_dict()
+        b4 = BaseModel(**my_dict)
+        self.assertEqual(self.b2.id, b4.id)
+        self.assertEqual(self.b2.created_at, b4.created_at)
+        self.assertEqual(self.b2.updated_at, b4.updated_at)
+        self.assertEqual(self.b2.name, b4.name)
+        self.assertEqual(self.b2.zodiac, b4.zodiac)
