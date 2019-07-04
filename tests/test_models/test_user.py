@@ -1,10 +1,9 @@
 #!/usr/bin/python3
-""" Unittest for BaseModel User """
+""" Unittest for User """
 import unittest
 from datetime import datetime
 from models.user import User
 from models.base_model import BaseModel
-
 
 
 class TestUser(unittest.TestCase):
@@ -12,28 +11,36 @@ class TestUser(unittest.TestCase):
 
     def setUp(self):
         """ Sets Up Testing Environment """
-        
+
         self.a = User()
         self.b = User()
 
         self.attributes = {
             "User":
-                    {"email": str,
-                    "password": str,
-                    "first_name": str,
-                    "last_name": str}, 
+            {"email": str,
+             "password": str,
+             "first_name": str,
+             "last_name": str},
         }
 
     def test_createNewUser(self):
+        """Checks for successful creation of new user"""
+
         self.assertTrue(self.a)
 
     def test_createUserId(self):
+        """Checks ID is present"""
+
         self.assertTrue(self.a.id)
 
     def test_uniqueUserId(self):
+        """Checks IDs against eachother"""
+
         self.assertNotEqual(self.a.id, self.b.id)
 
     def test_Instantation(self):
+        """Checks that User inherits from BaseModel"""
+
         self.assertIsInstance(self.a, User)
         self.assertTrue(issubclass(type(self.a), BaseModel))
         self.assertEqual(str(type(self.a)), "<class 'models.user.User'>")
@@ -60,6 +67,8 @@ class TestUser(unittest.TestCase):
         self.assertTrue(self.a.password, "pass")
 
     def test_attribute_and_values(self):
+        """Checks through attributes"""
+
         attributes = self.attributes["User"]
         mark = User()
         for k, v in attributes.items():
@@ -89,7 +98,6 @@ class TestUser(unittest.TestCase):
         """Checks to make sure id is the right amount of characters"""
 
         self.assertNotEqual(self.a.id, self.b.id)
-        
 
     def test_to_dict(self):
         """Tests the to_dict() method"""
@@ -97,6 +105,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(dict, type(self.a.to_dict()))
         self.assertEqual(dict, type(self.b.to_dict()))
 
-
     def tearDown(self):
+        """Tears down testing environment"""
+
         pass
