@@ -4,6 +4,7 @@ import unittest
 import datetime
 from models.amenity import Amenity
 from models.base_model import BaseModel
+import os
 
 
 class TestAmenity(unittest.TestCase):
@@ -89,4 +90,5 @@ class TestAmenity(unittest.TestCase):
     def tearDown(self):
         """Breaks down the testing environment"""
 
-        pass
+        if os.path.exists("file.json"):
+            os.remove("file.json")

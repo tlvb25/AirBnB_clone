@@ -144,6 +144,14 @@ class TestBaseModel(unittest.TestCase):
         b3 = BaseModel(id="1212")
         self.assertEqual(b3.id, "1212")
 
+    def test_extra_arg_for_class_creation(self):
+        """Checks if extra arg is passed through  when creating an instance"""
+
+        with self.assertRaises(NameError) as e:
+            b3 = BaseModel(friend)
+        excep = e.exception
+        self.assertEqual(str(excep), "name 'friend' is not defined")
+
     def test_multiplie_args_for_to_dict(self):
         """Checks for when to_dict() receives too many arguments"""
 

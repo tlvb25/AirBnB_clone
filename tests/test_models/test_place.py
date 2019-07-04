@@ -3,6 +3,7 @@
 import unittest
 from models.place import Place
 from models.base_model import BaseModel
+import os
 
 
 class TestPlace(unittest.TestCase):
@@ -21,6 +22,8 @@ class TestPlace(unittest.TestCase):
 
         del self.p1
         del self.p2
+        if os.path.exists("file.json"):
+            os.remove("file.json")
 
     def test_checks_attributes(self):
         """Checks for class specific attributes"""

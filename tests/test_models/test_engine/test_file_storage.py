@@ -43,6 +43,7 @@ class TestFileStorage(unittest.TestCase):
         del self.r1
         del self.s1
         del self.u1
+        del self.storage
         if os.path.exists("file.json"):
             os.remove("file.json")
 

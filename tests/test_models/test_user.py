@@ -4,6 +4,7 @@ import unittest
 from datetime import datetime
 from models.user import User
 from models.base_model import BaseModel
+import os
 
 
 class TestUser(unittest.TestCase):
@@ -108,4 +109,5 @@ class TestUser(unittest.TestCase):
     def tearDown(self):
         """Tears down testing environment"""
 
-        pass
+        if os.path.exists("file.json"):
+            os.remove("file.json")
