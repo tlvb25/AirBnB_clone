@@ -11,6 +11,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+import os
 
 
 class TestFileStorage(unittest.TestCase):
@@ -27,6 +28,10 @@ class TestFileStorage(unittest.TestCase):
         self.s1 = State()
         self.u1 = User()
         self.storage = FileStorage()
+        if os.path.exists("file.json"):
+            pass
+        else:
+            os.mknod("file.json")
 
     def tearDown(self):
         """Tears down the testing environment"""
@@ -38,6 +43,8 @@ class TestFileStorage(unittest.TestCase):
         del self.r1
         del self.s1
         del self.u1
+        if os.path.exists("file.json"):
+            os.remove("file.json")
 
     def test_storage_all(self):
         """Checks storage.all() is not empty"""
@@ -48,19 +55,19 @@ class TestFileStorage(unittest.TestCase):
         """Checks to make sure storage.all() contains instances"""
 
         self.assertIn("{}.{}".format(self.b1.__class__.__name__, self.b1.id),
-                         self.storage.all())
+                      models.storage.all())
         self.assertIn("{}.{}".format(self.a1.__class__.__name__, self.a1.id),
-                         self.storage.all())
+                      models.storage.all())
         self.assertIn("{}.{}".format(self.c1.__class__.__name__, self.c1.id),
-                         self.storage.all())
+                      models.storage.all())
         self.assertIn("{}.{}".format(self.p1.__class__.__name__, self.p1.id),
-                         self.storage.all())
+                      models.storage.all())
         self.assertIn("{}.{}".format(self.r1.__class__.__name__, self.r1.id),
-                         self.storage.all())
+                      models.storage.all())
         self.assertIn("{}.{}".format(self.s1.__class__.__name__, self.s1.id),
-                         self.storage.all())
+                      models.storage.all())
         self.assertIn("{}.{}".format(self.u1.__class__.__name__, self.u1.id),
-                         self.storage.all())
+                      models.storage.all())
 
     def test_storage_all_type(self):
         """Checks the type of storage.all()"""
