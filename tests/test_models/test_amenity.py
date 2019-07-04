@@ -82,7 +82,7 @@ class TestAmenity(unittest.TestCase):
         self.assertIsInstance(self.a3, Amenity)
 
     def test_inheritence(self):
-        """Checks to make sure Amenity is inherited from BaseModel"""
+        """Checks to make sure Amenity inherits from BaseModel"""
 
         self.assertTrue(issubclass(Amenity, BaseModel))
 

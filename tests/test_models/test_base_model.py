@@ -2,6 +2,9 @@
 """Unittest for BaseModel class"""
 import unittest
 from models.base_model import BaseModel
+from datetime import datetime
+from time import sleep
+import os
 
 
 class TestBaseModel(unittest.TestCase):
@@ -12,6 +15,16 @@ class TestBaseModel(unittest.TestCase):
 
         self.b1 = BaseModel()
         self.b2 = BaseModel()
+
+    def tearDown(self):
+        """Breaks down the testing environment"""
+
+        del self.b1
+        del self.b2
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
 
     def test_create(self):
         """Tests the creation of a BaseModel class"""
@@ -98,7 +111,45 @@ class TestBaseModel(unittest.TestCase):
 
         self.assertNotEqual(self.b1.to_dict(), self.b1.__dict__)
 
-    def tearDown(self):
-        """Breaks down the testing environment"""
+    def test_created_at_updated_at_type(self):
+        """Checks that created_at and updated_at are of datetime type"""
 
-        pass
+        self.assertEqual(datetime, type(self.b1.created_at))
+        self.assertEqual(datetime, type(self.b1.updated_at))
+        self.assertEqual(datetime, type(self.b2.created_at))
+        self.assertEqual(datetime, type(self.b2.updated_at))
+
+    def test_id_type(self):
+        """Checks id is of the string type"""
+
+        self.assertEqual(str, type(BaseModel().id))
+        self.assertEqual(str, type(self.b1.id))
+        self.assertEqual(str, type(self.b2.id))
+
+    def test_created_at_type(self):
+        """Check created_at is of the datetime type"""
+
+        self.assertEqual(datetime, type(BaseModel().created_at))
+        self.assertEqual(datetime, type(self.b1.created_at))
+        self.assertEqual(datetime, type(self.b2.created_at))
+
+    def test_updated_at_type(self):
+        """Check updated_at is of the datetime type"""
+
+        self.assertEqual(datetime, type(BaseModel().updated_at))
+        self.assertEqual(datetime, type(self.b1.updated_at))
+        self.assertEqual(datetime, type(self.b2.updated_at))
+
+    def test_kwarg_creation(self):
+        """Tests when passing attribute values through kwargs"""
+
+        b3 = BaseModel(id="1212")
+        self.assertEqual(b3.id, "1212")
+
+    def test_file(self):
+        """Tests that info is saved to file"""
+
+        b3 = BaseModel()
+        b3.save()
+        with open("file.json", "r") as f:
+            self.assertIn(b3.id, f.read())
