@@ -3,6 +3,7 @@
 import unittest
 from models.state import State
 from models.base_model import BaseModel
+import os
 
 
 class TestPlace(unittest.TestCase):
@@ -20,6 +21,8 @@ class TestPlace(unittest.TestCase):
 
         del self.s1
         del self.s2
+        if os.path.exists("file.json"):
+            os.remove("file.json")
 
     def test_non_existant_instance(self):
         """Checks for a non-existant instance"""
