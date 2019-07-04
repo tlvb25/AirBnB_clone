@@ -41,13 +41,13 @@ EOF  all  count  create  destroy  help  quit  show  update
 
 File | Description | Attributes
 ---- | ----------- | ----------
-[base_model.py](./models/base_model.py) | BaseModel class for all the other classes | id, created_at, updated_at
-[user.py](./models/user.py) | User class for future user information | email, password, first_name, last_name
-[city.py](./models/city.py) | City class for future location information | state_id, name
-[state.py](./models/state.py) | State class for future location information | name
-[place.py](./models/place.py) | Place class for future accomodation information | city_id, user_id, name, description, number_rooms, number_bathrooms, max_guest, price_by_night, latitude, longitude, amenity_ids
-[review.py](./models/review.py) | Review class for future user/host review information | place_id, user_id, text
-[amenity.py](./models/amenity.py) | Amenity class for future amenity information | name
+[base_model.py](./models/base_model.py) | The BaseModel class is inherited by other classes | id, created_at, updated_at
+[user.py](./models/user.py) | User class stores user-related info | email, password, first_name, last_name
+[city.py](./models/city.py) | City class stores city-specific information | state_id, name
+[state.py](./models/state.py) | State class stores state-specific information | name
+[place.py](./models/place.py) | Place class stores full detailed outline of rental unit features | city_id, user_id, name, description, number_rooms, number_bathrooms, max_guest, price_by_night, latitude, longitude, amenity_ids
+[review.py](./models/review.py) | Review class stores previous customer reviews and opinions | place_id, user_id, text
+[amenity.py](./models/amenity.py) | Amenity class stores highlighted amenity information | name
 
 ## Tests
 
