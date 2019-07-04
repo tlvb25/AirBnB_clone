@@ -4,7 +4,7 @@ import unittest
 from datetime import datetime
 from models.user import User
 from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage
+
 
 
 class TestUser(unittest.TestCase):
@@ -12,64 +12,91 @@ class TestUser(unittest.TestCase):
 
     def setUp(self):
         """ Sets Up Testing Environment """
-        print('set up')
+        
         self.a = User()
-        self.a.email = "test@holberton.com"
-        self.a.password = "Betty8"
-        self.a.first_name = "Betty"
-        self.a.last_name = "Holberton"
+        self.b = User()
 
         self.attributes = {
-            "BaseModel":
-                     {"id": str,
-                      "created_at": datetime.datetime,
-                      "updated_at": datetime.datetime},
             "User":
-                     {"email": str,
-                      "password": str,
-                      "first_name": str,
-                      "last_name": str},
-            "State":
-                     {"name": str},
-            "City":
-                     {"state_id": str,
-                      "name": str},
-            "Amenity":
-                     {"name": str},
-            "Place":
-                     {"city_id": str,
-                      "user_id": str,
-                      "name": str,
-                      "description": str,
-                      "number_rooms": int,
-                      "number_bathrooms": int,
-                      "max_guest": int,
-                      "price_by_night": int,
-                      "latitude": float,
-                      "longitude": float,
-                      "amenity_ids": list},
-            "Review":
-            {"place_id": str,
-                         "user_id": str,
-                         "text": str}
+                    {"email": str,
+                    "password": str,
+                    "first_name": str,
+                    "last_name": str}, 
         }
-        return attributes
+
+    def test_createNewUser(self):
+        self.assertTrue(self.a)
+
+    def test_createUserId(self):
+        self.assertTrue(self.a.id)
+
+    def test_uniqueUserId(self):
+        self.assertNotEqual(self.a.id, self.b.id)
+
+    def test_Instantation(self):
+        self.assertIsInstance(self.a, User)
+        self.assertTrue(issubclass(type(self.a), BaseModel))
+        self.assertEqual(str(type(self.a)), "<class 'models.user.User'>")
+
+    def test_toDict(self):
+        """Checks output when using to_dict()"""
+
+        self.assertFalse("__class__" in self.a.__dict__)
+        self.assertFalse("__class__" in self.b.__dict__)
+        dict_check = self.a.to_dict()
+        self.assertTrue("__class__" in dict_check)
+        self.assertFalse("__class__" in self.b.__dict__)
+
+    def test_setting_attributeValues(self):
+        """Checks you can change the name"""
+
+        self.a.first_name = "Marc"
+        self.a.last_name = "Cav"
+        self.a.email = "mark@test.com"
+        self.a.password = "pass"
+        self.assertTrue(self.a.first_name, "Marc")
+        self.assertTrue(self.a.last_name, "Cav")
+        self.assertTrue(self.a.email, "mark@test.com")
+        self.assertTrue(self.a.password, "pass")
+
+    def test_attribute_and_values(self):
+        attributes = self.attributes["User"]
+        mark = User()
+        for k, v in attributes.items():
+            self.assertTrue(hasattr(mark, k))
+            self.assertEqual(type(getattr(mark, k, None)), v)
+            self.assertTrue(type(v), str)
+
+    def test_compare_create_and_update(self):
+        """Makes sure create and update are slightly different"""
+
+        self.assertNotEqual(self.a.created_at, self.b.updated_at)
+
+    def test_updateAt_updates(self):
+        """Makes sure updated_at updates"""
+
+        tmp = self.a.updated_at
+        self.a.save()
+        self.assertNotEqual(tmp, self.a.updated_at)
+
+    def test_consistent_idLength(self):
+        """Checks to make sure id is the right amount of characters"""
+
+        self.assertTrue(len(self.a.id), 36)
+        self.assertTrue(len(self.b.id), 36)
+
+    def test_diff_ids(self):
+        """Checks to make sure id is the right amount of characters"""
+
+        self.assertNotEqual(self.a.id, self.b.id)
+        
+
+    def test_to_dict(self):
+        """Tests the to_dict() method"""
+
+        self.assertEqual(dict, type(self.a.to_dict()))
+        self.assertEqual(dict, type(self.b.to_dict()))
+
 
     def tearDown(self):
-        print('tear down')
-
-    def Test_Instantation(self):
-        self.assertIsInstance(self.a, User())
-
-    def Test_Subclass_Inheritance(self):
-        self.assertTrue(issubclass(type(self.a), BaseModel))
-
-    def Test_Inheriance(self):
-        self.assertIsInstance(self.a, BaseModel)
-
-    def Test_attribute(self):
-        mark = User()
-        for k, v in self.attributes.items():
-            self.assertIn(k, self.attributes)
-            self.assertEqual(type(getattr(mark, k, None)), v)
-    
+        pass
